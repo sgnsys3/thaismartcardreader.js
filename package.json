@@ -1,0 +1,13 @@
+{
+  "name": "thaismartcardreader-js",
+  "version": "0.0.1",
+  "description": "Read data from thai smartcard via NodeJS",
+  "main": "src/index.js",
+  "repository": "https://github.com/sgnsys3/thaismartcardreader",
+  "author": "Pureewat Kaewpoy",
+  "license": "MIT",
+  "dependencies": {
+    "smartcard": "1.0.22",
+    "utf8": "^3.0.0"
+  }
+}
