@@ -1,5 +1,5 @@
 {
-  "name": "thaismartcardreader-js",
+  "name": "thaismartcardreader.js",
   "version": "0.0.1",
   "description": "Read data from thai smartcard via NodeJS",
   "main": "src/index.js",
