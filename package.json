@@ -9,5 +9,12 @@
   "dependencies": {
     "smartcard": "1.0.22",
     "utf8": "^3.0.0"
-  }
+  },
+  "keywords": [
+    "thai",
+    "smartcard",
+    "reader",
+    "citizenid",
+    "thailand"
+  ]
 }

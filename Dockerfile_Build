@@ -1,0 +1,10 @@
+FROM node:8-alpine
+RUN apk add --update \
+  python \
+  python-dev \
+  py-pip \
+  build-base \
+  && pip install virtualenv \
+  && rm -rf /var/cache/apk/*
+RUN apk add --update pcsc-lite-dev
+# COPY . /usr/src/app
