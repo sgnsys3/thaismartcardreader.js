@@ -3,7 +3,7 @@ This is implementation of [smartcard](https://github.com/tomkp/smartcard) node j
 
 ## Installation
 ```
-yarn add thaismartcard.js
+yarn add thaismartcardreader.js
 ```
 
 ## Example Code
