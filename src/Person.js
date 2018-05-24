@@ -9,6 +9,24 @@ class Person extends EventEmitter {
       en: '',
       th: '',
     }
+    this.bod = {
+      year: '',
+      month: '',
+      day: '',
+    }
+    this.expireDate = {
+      year: '',
+      month: '',
+      day: '',
+    }
+    this.issueDate = {
+      year: '',
+      month: '',
+      day: '',
+    }
+    this.issuer = ''
+    this.address = ''
+    this.gender = ''
   }
 
   getCID() {
@@ -22,6 +40,43 @@ class Person extends EventEmitter {
   }
   setNameTH(name) {
     this.name.th = name
+  }
+  setBOD(bod = "") {
+    this.bod = this.extractDateToObject(bod)
+  }
+
+  extractDateToObject(dateString) {
+    let obj = {
+      yaer: "",
+      month: "",
+      day: "",
+    }
+    obj.year = dateString.substr(0, 4)
+    obj.month = dateString.substr(4, 2)
+    obj.day = dateString.substr(6, 2)
+    return obj
+  }
+
+  setGender(gender = '') {
+    if(gender == '1') gender = 'Male'
+    else if(gender == '2') gender = 'Female'
+    this.gender = gender
+  }
+
+  setExpireDate(expireDate) {
+    this.expireDate = this.extractDateToObject(expireDate)
+  }
+
+  setIssueDate(issueDate) {
+    this.issueDate = this.extractDateToObject(issueDate)
+  }
+
+  setAddress(address = '') {
+    this.address = address
+  }
+
+  setIssuer(issuer = '') {
+    this.issuer = issuer
   }
 }
 
