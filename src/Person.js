@@ -9,7 +9,7 @@ class Person extends EventEmitter {
       en: '',
       th: '',
     }
-    this.bod = {
+    this.dob = {
       year: '',
       month: '',
       day: '',
@@ -27,6 +27,7 @@ class Person extends EventEmitter {
     this.issuer = ''
     this.address = ''
     this.gender = ''
+    this.photo = []
   }
 
   getCID() {
@@ -41,13 +42,13 @@ class Person extends EventEmitter {
   setNameTH(name) {
     this.name.th = name
   }
-  setBOD(bod = "") {
-    this.bod = this.extractDateToObject(bod)
+  setDoB(dob = "") {
+    this.dob = this.extractDateToObject(dob)
   }
 
   extractDateToObject(dateString) {
     let obj = {
-      yaer: "",
+      year: "",
       month: "",
       day: "",
     }
@@ -77,6 +78,10 @@ class Person extends EventEmitter {
 
   setIssuer(issuer = '') {
     this.issuer = issuer
+  }
+
+  setPhoto(photo) {
+    this.photo = photo
   }
 }
 

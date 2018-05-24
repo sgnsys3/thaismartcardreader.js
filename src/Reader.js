@@ -1,10 +1,10 @@
 'use strict'
-const { EventEmitter } = require('events')
 const { Devices, ResponseApdu, CommandApdu } = require('smartcard')
+const { StringDecoder } = require('string_decoder')
+const { EventEmitter } = require('events')
+const utf8 = require('utf8')
 const COMMAND = require('./APDUCommand')
 const Person = require('./Person')
-const utf8 = require('utf8')
-const { StringDecoder } = require('string_decoder')
 
 class Reader extends EventEmitter {
   constructor() {
@@ -38,15 +38,16 @@ class Reader extends EventEmitter {
           })
           // READ Card
           const isThai = true
-          let cid = (await this.runAndReadAllByte(this.card, COMMAND.GET.CID)).substring(0, 13)
-          let enFullName = await this.runAndReadAllByte(this.card, COMMAND.GET.EN_FULLNAME)
-          let thFullName = await this.runAndReadAllByte(this.card, COMMAND.GET.TH_FULLNAME, isThai)
-          let BOD = await this.runAndReadAllByte(this.card, COMMAND.GET.BOD)
-          let gender = await this.runAndReadAllByte(this.card, COMMAND.GET.GENDER)
-          let expireDate = await this.runAndReadAllByte(this.card, COMMAND.GET.EXPIRE_DATE)
-          let issueDate = await this.runAndReadAllByte(this.card, COMMAND.GET.ISSUE_DATE)
-          let issuer = await this.runAndReadAllByte(this.card, COMMAND.GET.ISSUER, isThai)
-          let address = await this.runAndReadAllByte(this.card, COMMAND.GET.ADDRESS, isThai)
+          let cid = (await this.runAndReadAllByteToString(this.card, COMMAND.GET.CID)).substring(0, 13)
+          let enFullName = await this.runAndReadAllByteToString(this.card, COMMAND.GET.EN_FULLNAME)
+          let thFullName = await this.runAndReadAllByteToString(this.card, COMMAND.GET.TH_FULLNAME, isThai)
+          let dob = await this.runAndReadAllByteToString(this.card, COMMAND.GET.DOB)
+          let gender = await this.runAndReadAllByteToString(this.card, COMMAND.GET.GENDER)
+          let expireDate = await this.runAndReadAllByteToString(this.card, COMMAND.GET.EXPIRE_DATE)
+          let issueDate = await this.runAndReadAllByteToString(this.card, COMMAND.GET.ISSUE_DATE)
+          let issuer = await this.runAndReadAllByteToString(this.card, COMMAND.GET.ISSUER, isThai)
+          let address = await this.runAndReadAllByteToString(this.card, COMMAND.GET.ADDRESS, isThai)
+          let photoArray = await this.readPhoto(this.card)
 
           enFullName = this.sharpToSpace(enFullName).trim()
           thFullName = this.sharpToSpace(thFullName).trim()
@@ -58,24 +59,23 @@ class Reader extends EventEmitter {
           person.setCID(cid)
           person.setNameEN(enFullName)
           person.setNameTH(thFullName)
-          person.setBOD(BOD)
+          person.setDoB(dob)
           person.setGender(gender)
           person.setAddress(address)
           person.setExpireDate(expireDate)
           person.setIssueDate(issueDate)
           person.setIssuer(issuer)
+          person.setPhoto(photoArray)
           this.emit('card-readed', person)
 
         } catch (err) {
-          if(err.hasMoreBytesAvailable() == false) {
-            this.emit('error', err)
-          }
+          console.log(err)
         }
       })
     })
   }
 
-  runAndReadAllByte(card, apduCommand, isThai = false) {
+  runAndReadAllByteToString(card, apduCommand, isThai = false) {
     return new Promise(async (resolve, reject) => {
       let apduResponse = await this.runCommand(card, apduCommand)
       if (apduResponse.hasMoreBytesAvailable()) {
@@ -85,6 +85,22 @@ class Reader extends EventEmitter {
         }
         let stringData = this.stringFromUTF8Array(data)
         resolve(stringData)
+      } else {
+        if (apduResponse.isOk()) {
+          resolve(apduResponse)
+        } else {
+          reject(apduResponse)
+        }
+      }
+    })
+  }
+
+  runAndReadAllByte(card, apduCommand) {
+    return new Promise(async (resolve, reject) => {
+      let apduResponse = await this.runCommand(card, apduCommand)
+      if (apduResponse.hasMoreBytesAvailable()) {
+        let data = await this.getMoreByte(card, apduResponse)
+        resolve(data)
       } else {
         if (apduResponse.isOk()) {
           resolve(apduResponse)
@@ -150,6 +166,17 @@ class Reader extends EventEmitter {
       }
     })
     return returnData
+  }
+
+  readPhoto(card) {
+    return new Promise(async (resolve, reject) => {
+      let collectArray = []
+      for(let i = 0; i < 20; i++) {
+        let part = await this.runAndReadAllByte(card, COMMAND.GET.PHOTO[i])
+        collectArray.push(...part)
+      }
+      resolve(collectArray)
+    })
   }
 }
 
