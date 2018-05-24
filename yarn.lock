@@ -26,9 +26,9 @@ pcsclite@^0.5.0:
     buffertools "^2.1.2"
     nan "^2.2.1"
 
-smartcard@1.0.22:
-  version "1.0.22"
-  resolved "https://registry.yarnpkg.com/smartcard/-/smartcard-1.0.22.tgz#277b7255b6acf7b47c097457a614a1ad664113a8"
+smartcard@^1.0.23:
+  version "1.0.23"
+  resolved "https://registry.yarnpkg.com/smartcard/-/smartcard-1.0.23.tgz#dbf24d83d5ffc2b3ff66bb2726bd9b4ff7689ffd"
   dependencies:
     hexify "^1.0.1"
     pcsclite "^0.5.0"
