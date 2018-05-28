@@ -73,5 +73,7 @@ myReader.on('device-deactivated', () => { console.log('device-deactivated') })
 
 ## API Document
 
+Comming Soon in Version 0.3
+
 ## Credit
 [Chakphanu](https://github.com) for an [APDU Command](https://github.com/chakphanu/ThaiNationalIDCard/blob/master/APDU.md)
