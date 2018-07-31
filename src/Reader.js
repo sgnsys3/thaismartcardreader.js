@@ -73,6 +73,7 @@ class Reader extends EventEmitter {
 
         } catch (err) { this.emit('error', err) }
       })
+      this.device.on('card-removed', event => this.emit('card-removed', event))
     })
   }
 }
