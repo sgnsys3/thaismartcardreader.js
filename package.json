@@ -1,6 +1,6 @@
 {
   "name": "thaismartcardreader.js",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Read data from thai smartcard via NodeJS",
   "main": "src/index.js",
   "repository": "https://github.com/sgnsys3/thaismartcardreader",

@@ -27,6 +27,8 @@ myReader.on('image-reading', (percent) => {
 
 myReader.on('card-inserted', async (person) => {
   const cid = await person.getCid()
+  const first4Code = await person.getFirst4CodeUnderPicture()
+  const last8Code = await person.getLast8CodeUnderPicture()
   const thName = await person.getNameTH()
   const enName = await person.getNameEN()
   const dob = await person.getDoB()
@@ -36,6 +38,8 @@ myReader.on('card-inserted', async (person) => {
   const issuer = await person.getIssuer()
 
   console.log(`CitizenID: ${cid}`)
+  console.log(`First4CodeUnderPicture: ${first4Code}`)
+  console.log(`Last8CodeUnderPicture: ${last8Code}`)
   console.log(`THName: ${thName.prefix} ${thName.firstname} ${thName.lastname}`)
   console.log(`ENName: ${enName.prefix} ${enName.firstname} ${enName.lastname}`)
   console.log(`DOB: ${dob.day}/${dob.month}/${dob.year}`)
@@ -53,6 +57,10 @@ myReader.on('card-inserted', async (person) => {
   const photoBuff = Buffer.from(photo)
   fileStream.write(photoBuff)
   fileStream.close()
+})
+
+myReader.on('card-removed', () => {
+  console.log('card removed')
 })
 
 myReader.on('device-deactivated', () => {

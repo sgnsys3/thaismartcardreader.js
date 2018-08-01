@@ -38,7 +38,9 @@ class Person extends EventEmitter {
         month: null,
         day: null,
       },
-      photo: null
+      photo: null,
+      first4CodeUnderPicture: null,
+      last8CodeUnderPicture: null,
     }
     this._card = card
     this._reader = reader
@@ -46,6 +48,14 @@ class Person extends EventEmitter {
 
   setCid(cid) {
     this._allData.cid = cid
+  }
+
+  setFirst4CodeUnderPicture(first4Digit) {
+    this._allData.first4CodeUnderPicture = first4Digit
+  }
+
+  setLast8CodeUnderPicture(last8Digit) {
+    this._allData.last8CodeUnderPicture = last8Digit
   }
 
   setNameTH(name = '') {
@@ -100,6 +110,20 @@ class Person extends EventEmitter {
       this.setCid((await ReaderUtils.runAndReadAllByteToString(this._card, APDU.GET.CID)).substring(0, 13))
     }
     return this._allData.cid
+  }
+
+  async getFirst4CodeUnderPicture () {
+    if (this._allData.first4CodeUnderPicture == null) {
+      this.setFirst4CodeUnderPicture((await ReaderUtils.runAndReadAllByteToString(this._card, APDU.GET.FIRST_4_CODE_UNDERPICTURE)))
+    }
+    return this._allData.first4CodeUnderPicture
+  }
+
+  async getLast8CodeUnderPicture () {
+    if (this._allData.last8CodeUnderPicture == null) {
+      this.setLast8CodeUnderPicture((await ReaderUtils.runAndReadAllByteToString(this._card, APDU.GET.LAST_8_CODE_UNDERPICTURE)))
+    }
+    return this._allData.last8CodeUnderPicture
   }
 
   async getNameEN() {
