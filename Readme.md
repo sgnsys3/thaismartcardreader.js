@@ -6,7 +6,7 @@ This is implementation of [smartcard](https://github.com/tomkp/smartcard) node j
 yarn add thaismartcardreader.js
 ```
 ### For windows
-Please install [windows-build-tools](https://www.npmjs.com/package/windows-build-tools) before use.
+Please install [windows-build-tools](https://www.npmjs.com/package/windows-build-tools) before install this library.
 
 ## Deprecated
 1. "card-readed" event from Reader class using "card-inserted" instead
