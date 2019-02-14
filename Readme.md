@@ -6,7 +6,7 @@ This is implementation of [smartcard](https://github.com/tomkp/smartcard) node j
 yarn add thaismartcardreader.js
 ```
 ### For windows
-Please install [windows-build-tools](https://www.npmjs.com/package/windows-build-tools) before install this library.
+Please install [windows-build-tools](https://www.npmjs.com/package/windows-build-tools) as administrator before install this library.
 
 ## Deprecated
 1. "card-readed" event from Reader class using "card-inserted" instead
@@ -20,3 +20,6 @@ Comming Soon in Version 0.3
 
 ## Credit
 [Chakphanu](https://github.com/chakphanu) for an [APDU Command](https://github.com/chakphanu/ThaiNationalIDCard/blob/master/APDU.md)
+
+
+[familla](https://github.com/familla) for a report, on windows need to install windows-build-tools as administrator right.
