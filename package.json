@@ -7,7 +7,7 @@
   "author": "Pureewat Kaewpoy",
   "license": "MIT",
   "dependencies": {
-    "smartcard": "^1.0.23",
+    "smartcard": "1.0.23",
     "utf8": "^3.0.0"
   },
   "keywords": [
